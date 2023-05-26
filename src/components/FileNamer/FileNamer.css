@@ -1,0 +1,12 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
+   text-align: left;
+
+}
+
+.preview {
+    border: 1px solid darkgrey;
+    padding: 10px;
+}
