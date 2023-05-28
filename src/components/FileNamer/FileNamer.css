@@ -3,10 +3,32 @@
    flex-direction: column;
    padding: 20px;
    text-align: left;
-
 }
-
 .preview {
     border: 1px solid darkgrey;
     padding: 10px;
+}
+.information-wrapper {
+    position: relative;
+}
+button.information {
+    margin: 10px 0;
+    padding: 10px 0;
+    color: blue;
+    font-size: 0.75em;
+    cursor: pointer;
+    border: none;
+    background: none;
+
+}
+.popup {
+    position: absolute;
+    top: -70px;
+    left: 0;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid darkgrey;
+}
+.popup span {
+    padding: 0 4px;
 }

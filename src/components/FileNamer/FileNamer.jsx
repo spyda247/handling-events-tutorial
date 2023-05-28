@@ -1,43 +1,75 @@
-import React, { useState } from 'react'
-import './FileNamer.css'
+import React, { useState, useEffect, useCallback } from "react";
+import "./FileNamer.css";
 
 function FileNamer() {
-  const [name, setName ] = useState('')
-  const [alert, setAlert] = useState(false)
+  const [name, setName] = useState("");
+  const [alert, setAlert] = useState(false);
 
-  const validate = event => {
-    if (/\*/.test(name)) {
-      event.preventDefault()
-      setAlert(true)
-      return
+  useEffect(() => {
+    window.addEventListener("click", handleWindowClick);
+    return () => window.removeEventListener("click", handleWindowClick);
+  }, [alert, setAlert]);
+
+  const handleWindowClick = (event) => {
+    if (!event.target.type) setAlert(false);
+  };
+  const validate = (event) => {
+    event.preventDefault();
+    if (/\*/.test(name) || name === "") {
+      setAlert(true);
+    } else {
+      setAlert(false);
+      setName("");
+      console.log(`creating file ${name}.js`);
     }
-    setAlert(false)
-  }
+  };
+
   return (
     <div className="wrapper">
       <div className="preview">
         <h2>Preview: {name}.js</h2>
       </div>
-      <form action="">
+      <form action={`/?name=${name}`}>
         <label htmlFor="file-name">
           <p>Name:</p>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="file-name"
             autoComplete="off"
-            onChange={event => {setName(event.target.value)}} />
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+            value={name}
+          />
         </label>
-        {alert && 
-          <div>
-            <span role="img" aria-label="allowed"></span>
-            <span role="img" aria-label="not-allowed"></span>
-          </div>}
+        <div className="information-wrapper">
+          <button
+            className="information"
+            onClick={() => setAlert(true)}
+            type="button"
+            name="information"
+          >
+            more information
+          </button>
+          {alert && (
+            <div className="popup">
+              <span role="img" aria-label="allowed">
+                ✅
+              </span>
+              Only alphanumeric characters allowed
+              <span role="img" aria-label="not-allowed">
+                ⛔
+              </span>
+              * Not allowed
+            </div>
+          )}
+        </div>
         <div>
-            <button onClick={validate}>Save</button>
+          <button onClick={validate}>Save</button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default FileNamer
+export default FileNamer;
