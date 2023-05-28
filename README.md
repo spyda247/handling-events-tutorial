@@ -8,7 +8,7 @@
 - useEffect
 - useCallback(optimisation)
 
-### Decription
+### Description
 
 Demonstrates use of state management, controlled components and events handling with React
 
